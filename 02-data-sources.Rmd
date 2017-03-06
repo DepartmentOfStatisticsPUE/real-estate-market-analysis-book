@@ -1,0 +1,264 @@
+# Data sources on real estate market {#data-sources}
+
+## Basic data sources
+
++ Land surveying documentation (dokumentacja geodezyjna)
++ Mortgage registers (księgi wieczyste)
++ Notarial deeds (akty notarialne)
++ Reports and results of conducted analysis
++ Surveys  (based on questionaires)
++ The Internet
++ Newspaper offers
+
+
+Research on Real Estate Market in Poland by Central Statistical Office (selected)
+
++ LIVING CONDITIONS, SOCIAL ASSISTANCE
+    + 1.25.01(064) Household budgets
+    + 1.25.08(067) European Union Statistics on Income and Living Conditions
+    + 1.25.12(070) Poverty and social exclusion
++ DWELLINGS, COMMUNAL INFRASTRUCTURE
+    + 1.26.01(073) Housing management
+    + 1.26.04(074) Property trade
+    + 1.26.06(075) Water, sewerage, heating, gas and electricity infrastructure
+    + 1.26.08(076) Municipal solid waste and the maintenance of municipalities in a clean and orderly condition
+    + 1.26.09(077) A survey of prices of housing and commercial properties
+    + 1.26.10(078) Description of housing resources
++ AGRICULTURAL AND FORESTRY ACTIVITIES   
+    + 1.45.02(124) Land management
+    + 1.45.03(125) Land use
++ CONSTRUCTION ACTIVITIES
+    + 1.47.01(157) Construction and assembly production; costs listed  by function of expense
+    + 1.47.04(158) Building permits issued and building notices submitted for the construction of buildings; effects of construction activities
+    + 1.47.05(159) Buildings completed
+    + 1.47.06(160) Demolition orders issued
++ REGIONAL STUDIES
+
+Source: [Statistical Research Program of Public Statistics for 2017](http://bip.stat.gov.pl/dzialalnosc-statystyki-publicznej/program-badan-statystycznych/pbssp-2017/)
+
+
+## Where we can get these data?
+
++ Publications:
+    + Industry, Construction, Fixed Assets -- http://stat.gov.pl/en/topics/industry-construction-fixed-assets/
+    + Municipal infrastructure -- http://stat.gov.pl/en/topics/municipal-infrastructure/
+        + Real Estate Sales
+        + Municipal infrastructure
+        + Housing economy
+    + National Census of Population and Housing 2011
++ Poland - macroeconomic indicators
+    + Selected monthly macroeconomic indicators
+    + Quarterly macroeconomic indicators
+    + Annual macroeconomic indicators
++ Local data bank -- https://bdl.stat.gov.pl/BDL/dane/podgrup/temat
+    + HOUSING ECONOMY AND MUNICIPAL INFRASTRUCTURE
+    + INDUSTRY AND CONSTRUCTION
+    + LOCAL GOVERNMENT  (eg. taxes)
+    
+    
++ Realized by NBP:
+    + 1.26.09(077) Badanie cen nieruchomości mieszkaniowych i komercyjnych
+    
++ Reports:
+    + Report on the situation in the Polish residential and commercial real estate market (yearly)
+    + House Prices Database - BaRN (2006 Q3 - 2016 Q3)
+    + Information on home prices and the situation in the residential and commercial real estate market in Poland  (quarterly)
+
+    
+Source: http://www.nbp.pl/homen.aspx?f=/en/publikacje/inne/real_estate_market_pre.html
+
+
+## Obtaining data from the Internet
+
+Here we will focus on two packages `OECD` and `eurostat`, which allows to download data directly from OECD and Eurostat databases.
+
+In the first step we will install these two packages
+
+```{r install, eval=FALSE}
+install.packages(c('OECD','eurostat'))
+```
+
+Then, we need to load them
+
+```{r loading required packages}
+library('eurostat')
+library('OECD')
+```
+
+### OECD package
+
+Now, we will focus on OECD package which consist of the following functions
+
++ `browse_metadata`	-- Browse the metadata related to a series.
++ `get_dataset` -- Download OECD data sets.
++ `get_datasets`	-- Get a data frame with information on all available datasets.
++ `get_data_structure` -- Get the data structure of a dataset.
++ `search_dataset`	-- Search codes and descriptions of available OECD series
+
+Let's check what data sources are related to real estate market. 
+
+```{r search statistics related to real estate}
+d <- search_dataset('real estate')
+d
+```
+
+Unfortunately, there are no tables that contains this term. Now, we can check `property` which is a general term for objects on real estate market
+
+```{r check for properties}
+d <- search_dataset('Property')
+d
+```
+
+We found two indicators `RPPI` and `RPPI_TARGET`. We can use function `browse_metadata` to provide information about these indicators.
+
+#### RPPI -- Residential Property Prices Indices 
+
+`RPPI` -- Residential Property Prices Indices (RPPIs) – also named House price indices (HPIs), are index numbers that measure the price of residential properties over time. RPPIs are key statistics not only for citizens and households across the world, but also for economic and monetary policy makers. Among their professional uses, they serve, for example, to monitor macroeconomic imbalances and risk exposure of the financial sector. 
+
+Types of dwelling - please note that the classification and terminology may differ significantly from country to country. 
+
++ 'All type of dwellings' refers to all kind of dwellings purchased by households regardless of their the structural characteristics, e.g. single-detached houses, semi-detached houses, terraced houses, row houses or townhouses, multi-family apartments, condominiums, and coops, etc. 
++ 'Single-family dwellings' are generally free standing residential building, e.g. detached house 
++ 'Multi-family dwellings' are multiple separate housing units for residential inhabitants contained within one building or several buildings within one complex, e.g. apartment building, duplex or semi-detached house, and townhouse.
+
+
+The statistical population is as follows
+
++ The 'Residential property Price Indices - Complete database' dataset mainly contains quarterly statistics and related statistical methodological information for the 34 OECD member countries and for some non-member countries. 
+
+This dataset focuses on comparable series for 3 target indicators: 
+
+1) `RPPI` - Sales of newly-built and existing dwellings, all types of dwellings, whole country; 
+2) `RPPI` - Sales of newly-built dwellings, all types of dwellings, whole country and; 
+3) `RPPI` - Sales of existing dwellings, all types of dwellings, whole country. 
+
+When none of these indicators was available, another one was selected. This is particularly true for Australia, Chile, Korea, Switzerland and the United States.
+
+Data are available at a quarterly frequency for all the countries. For Canada, Chile, Israel, Japan, Korea and Turkey monthly data are also available.
+
+
+#### RPPI_TARGET -- Residential Property Prices Indices (Headline indicators)
+
+Now, let's check `RPPI_TARGET` variable
+
++ The dataset called “Residential Property Price Indices (RPPIs) – Headline indicators” presents, for each country, the RPPI that is available at the most aggregate level. 
+
+The 'Residential property Price Indices - Headline indicators' mainly contains quarterly statistics and related statistical methodological information for the 34 OECD member countries and some non-member countries. 
+
+The Price Index based on sales of newly-built and existing dwellings over the whole country (RPPI - Sales of newly-built and existing dwellings, all types of dwellings, whole country) was systematically selected when available. When this indicators was not available, another one was selected. This is particularly true for Switzerland, Canada, Turkey, Japan, Norway, Australia, Greece, Korea and the United States.
+
+Data are available at a quarterly frequency for all countries. For Canada, Chile, Israel, Japan, Korea and Turkey monthly data are also available.
+
+#### Obtaining the data
+
+First, we should apply function `get_data_structure` to verify the structure prior downloading
+
+```{r obtaining headline variables}
+headline_struct <- get_data_structure('RPPI_TARGET')
+str(headline_struct,1)
+```
+
+This is a list that contains the following variables
+
+```{r variables in structure}
+headline_struct$VAR_DESC
+```
+
+There are three indicators that we could focus on.
+
+```{r measures}
+headline_struct$MEASURE
+```
+
+And have the following frequency
+
+```{r frequencies}
+headline_struct$FREQUENCY
+```
+
+For the purpose we will focus only on the following locations
+
++ POL
++ EU28
++ CZE
++ HUN
+
+```{r}
+headline <- get_dataset(dataset = 'RPPI_TARGET',
+                        filter = list(c('POL','EU28','CZE','HUN'))) %>%
+  filter(FREQUENCY == 'Q') %>%
+  select(LOCATION, obsTime, obsValue,MEASURE) %>%
+  mutate(obsTime = as.yearqtr(obsTime, format = '%Y-Q%q'))
+```
+
+Now, plot the data
+
+```{r headline-IXOB}
+headline %>% 
+  filter(MEASURE == 'IXOB') %>% 
+  ggplot(data = .,
+       aes(x = obsTime,
+           y = obsValue,
+           group = LOCATION,
+           colour = LOCATION)) +
+  geom_line() +
+  scale_x_yearqtr() +
+  theme_bw() + 
+  ggtitle('Index (2010 = 100)') +
+  xlab('Quarter') +
+  ylab('Index')
+```
+
+We can also use these data to plot different index
+
+```{r headline-GP}
+headline %>% 
+  filter(MEASURE == 'GP') %>% 
+  ggplot(data = .,
+       aes(x = obsTime,
+           y = obsValue,
+           group = LOCATION,
+           colour = LOCATION)) +
+  geom_line() +
+  scale_x_yearqtr() +
+  theme_bw() +
+  ggtitle('Index (previous period = 100)') +
+  xlab('Quarter') +
+  ylab('Index')
+```
+
+Now, lets, check the same countries but for the index `RPPI`.
+
+```{r countries}
+rppi_dict <- get_data_structure('RPPI')
+rppi <- get_dataset('RPPI',
+                    list(c('POL','EU28','CZE','HUN'))) %>%
+  filter(FREQUENCY == 'Q',
+         MEASURE == 'IXOB') %>%
+  select(SUBJECT, LOCATION, obsTime, obsValue) %>%
+  mutate(obsTime = as.yearqtr(obsTime, format = '%Y-Q%q'))
+```
+
+Let's plot the data
+
+```{r rppi-index}
+rppi %>% 
+  ggplot(data = .,
+       aes(x = obsTime,
+           y = obsValue,
+           group = LOCATION,
+           colour = LOCATION)) +
+  geom_line() +
+  scale_x_yearqtr() +
+  theme_bw() +
+  ggtitle('Index (2010 = 100)') +
+  xlab('Quarter') +
+  ylab('Index') +
+  facet_wrap(~SUBJECT,
+             labeller = labeller(SUBJECT = 
+               c(RP0101='Sales of newly-built\nand existing dwellings',
+                 RPEX01='Sales of existing dwellings',
+                 RPNW01='Sales of newly-built dwellings')))
+```
+
+

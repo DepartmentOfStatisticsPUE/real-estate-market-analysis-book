@@ -1,0 +1,106 @@
+# Introduction {#intro}
+
+## Basic definitions
+
+**Real estate** delimited area of lands with all the buildings and facilities (artificial improvements to lands, such as buildings, sewers, pavements, fences and wells) established on it (common meaning).
+
+According to the Code of Civil Proceedings art. 46 §1 (Kodeks Cywilny), real estates are:
+
+    + parts of the ground surface;
+    + distinct subjects of property (lands);
+    + buildings constantly bound with the ground and parts of the buildings if, based on specific regulations, they represent property right which is different from the ground.
+    
+    
+Types of real estates - according to the CC (Civil Code - Kodeks Cywilny):
+
++ land property (nieruchomość gruntowa) -- Superficies solo cedit
++ building property (nieruchomość budynkowa) -- Perpetual usufruct – użytkowanie wieczyste
++ premises property (nieruchomość lokalowa) -- enter in the land and mortgage register
+
+Real Estate Market
+
+    + activities and interactions of entities
+    + economic activity
+    + abstract term
+    + agreements (contracts)
+    + set of legal procedures
+    + forum (place)
+
+
+**Real Estate Market** -- By the real estate market we mean the whole set of conditions which create the frame for the transfer of property rights connected with the ownership of real estates, for contracts setting. These contracts create new rights and obligations for real estates.
+
+
+Criterions used for real estate market division:
+
+    + subject criterion (according to the type of real estate – its function);
+    + spatial criterion (according to the spatial influence);
+    + property rights criterion (according to the property rights classification: ownership, leasehold, perpetual usufruct, proprietary coop lease ,etc.);
+    + price criterion;
+
+According to spatial criterion:
+
+    + local market;
+    + regional market;
+    + domestic market;
+    + international market;
+
+
+„Actors” acting on real estate market:
+
+    + investors;
+    + developers;
+    + purchasers and leaseholders;
+    + brokers (pośrednicy);
+    + property managers (zarządcy nieruchomości);
+    + real estate valuers (rzeczoznawcy);
+    + notaries (notariusze);
+    + banks;
+    + state and local governments;
+
+
+## Real estate market -- characteristics and functions
+
+
++ Economic characteristics
+    + scarcity (rzadkość)
+    + permanence (trwałość infrastruktury)
+    + improvements (wartość może być powiększona o tzw. naniesienia)
+    + area preference (lokalizacja)
++ Physical characteristics
+    + non-transferability/immobility (nieprzenaszalność)
+    + indestructibility (niezniszczalność)
+    + nonhomogenity
++ Legal characteristics
+    + ownership of the real estate
+    + registrated (mortgage/land registers)
+    + special form of land dealings (obrót nieruchomościami)
+    + partition of built-up property (difficulty)
+
+
+Real estate market -- functions
+
+    + trade od goods (towar) 
+    + lien/pledge (zastaw);
+    + income (dochód);
+    + investments (tezauryzacja, lokowanie środków pieniężnych);
+    + speculation (spekulacja);
+    + property taxes (funkcja fiskalna);
+
+
+Real Estate Market -- scope
+
++ Macro environment
+    + Real Estate Stock and Building Activity
+    + The Real Estate Industry
+    + Demographic Trends
+    + Labour Market Data
+    + Interest Rates
+    + Prices and rents
++ Micro environment
+    + Local market
+    + Urban / rural
+    + Locality, locality, locality...
+    
+
+
+

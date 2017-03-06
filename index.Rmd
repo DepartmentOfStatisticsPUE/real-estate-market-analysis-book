@@ -1,0 +1,23 @@
+--- 
+title: "Real Estate Market Analysis"
+author: "Maciej Beręsewicz"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: ''
+description: "Materials for Real Estate Market Analysis course conducted at Poznań University of Economics and Business"
+---
+
+# Prerequisites
+
+Load the required packages
+
+```{r message= FALSE, warning=FALSE}
+library(tidyverse)
+library(zoo)
+```
+
