@@ -6,22 +6,167 @@
 
 ## Scraping data from Morizon.pl -- step by step 
 
+We enter the following page http://www.morizon.pl/ceny/ which by default loads data for Warsaw. This is presented on Figure \@ref(fig:morizon1)
 
-![](images/ch3/morizon1.png)
+```{r morizon1, echo=FALSE, fig.cap='Morizon'}
+knitr::include_graphics(path = 'images/ch3/morizon1.png')
+```
 
-![](images/ch3/morizon2.png)
+```{r morizon1-obtain-data}
+doc <- read_html('http://www.morizon.pl/ceny/')
+```
 
-![](images/ch3/morizon3.png)
+To check where the data is click right mouse and "inspect element". This is presented on Figure \@ref(fig:morizon2).
 
-![](images/ch3/morizon4.png)
+```{r morizon2, echo=FALSE, fig.cap='Morizon -- inspect element'}
+knitr::include_graphics(path = 'images/ch3/morizon2.png')
+```
 
-![](images/ch3/morizon5.png)
+Search for the line with `<script type='text/javascript'>...</script>`. This is presented on Figure \@ref(fig:morizon3) and \@ref(fig:morizon4).
+
+
+```{r morizon3, echo=FALSE, fig.cap='Morizon -- script (text/javascript)'}
+knitr::include_graphics(path = 'images/ch3/morizon3.png')
+```
+
+```{r morizon4, echo=FALSE, fig.cap='Morizon'}
+knitr::include_graphics(path = 'images/ch3/morizon4.png')
+```
+
+
+To get this into R use the following code to gather the data referring to all scripts. Next, we need to look for specific text that is presented on Figure  \@ref(fig:morizon5), in particular we seek for `newDate.setYear` or  `newDate.setMonth` or `newDate.setDate` or other from `chartData.push`
+
+```{r morizon3-script}
+scripts <- doc %>% 
+  html_nodes('script') %>%
+  html_text()
+```
+
+
+```{r morizon5, echo=FALSE, fig.cap='Morizon'}
+knitr::include_graphics(path = 'images/ch3/morizon5.png')
+```
+
+```{r morizon4-script}
+flag <- stri_detect(str = scripts, fixed = 'newDate.setMonth')
+flag
+
+selected <- scripts[flag]
+
+length(selected)
+```
+
+Now, we will work only on the one element of `selected` list for clarity, which refers to overall price for m2.
+
+```{r}
+warsaw <- selected[[1]]
+```
+
+We need to match the following strings and I provide a regular expression code to extract them.
+
++ `setYear(2006)` -- `setYear\\(\\d{4}\\)`
++ `setMonth(11)`  -- `setMonth\\(\\d{1,2}\\)`
++ `setDate(1)`  -- `setDate\\(\\d{1,2}\\)`
++ `visits: 8560`  -- `visits\\:\\s+\\d{1,5}`
+
+```{r}
+prices <- stri_extract(str = warsaw,
+                       regex = 'visits\\:\\s+\\d{1,5}',
+                       mode = 'all')
+prices <- unlist(prices)
+head(prices)
+```
+
+From this, we need to exctract only numeric characters
+
+```{r}
+prices <- stri_extract(str = prices,
+                       regex = '\\d+',
+                       mode = 'all',
+                       simplify = T)
+prices <- as.numeric(prices) 
+plot(prices, type = 'l', xlab = 'Time', ylab = 'Price PLN/m2')
+```
+
+
 
 ## Scraping data from OtoDom.pl -- step by step 
 
+
+```{r otodom1, echo=FALSE, fig.cap='Otodom'}
+knitr::include_graphics(path = 'images/ch3/otodom1.png')
+```
+
+
+```{r otodom2, echo=FALSE, fig.cap='Otodom'}
+knitr::include_graphics(path = 'images/ch3/otodom2.png')
+```
+
+```{r otodom3, echo=FALSE, fig.cap='Otodom'}
+knitr::include_graphics(path = 'images/ch3/otodom3.png')
+```
+
+https://www.otodom.pl/sprzedaz/mieszkanie/poznan/?search%5Bfilter_enum_market%5D%5B0%5D=secondary&search%5Bdescription%5D=1&search%5Bcreated_since%5D=14&search%5Bdist%5D=0
+
+
+We need to add page numer `&page=1`, so we will be able to scrape all result pages.
+
+
+https://www.otodom.pl/sprzedaz/mieszkanie/poznan/?search%5Bfilter_enum_market%5D%5B0%5D=secondary&search%5Bdescription%5D=1&search%5Bcreated_since%5D=14&search%5Bdist%5D=0&page=1
+
+
+```{r}
+url <- 'https://www.otodom.pl/sprzedaz/mieszkanie/poznan/?search%5Bfilter_enum_market%5D%5B0%5D=secondary&search%5Bdescription%5D=1&search%5Bcreated_since%5D=14&search%5Bdist%5D=0&page=1'
+doc <- read_html(url)
+
+```
+
+
+```{r otodom4, echo=FALSE, fig.cap='Otodom'}
+knitr::include_graphics(path = 'images/ch3/otodom5.png')
+knitr::include_graphics(path = 'images/ch3/otodom6.png')
+```
+
+
+```{r}
+offers <- doc %>% html_nodes('div.offer-item-details')
+
+offer_title <- offers %>% 
+  html_nodes('span.offer-item-title') %>%
+  html_text()
+
+head(offer_title)
+
+offer_total_price <- offers %>% 
+  html_nodes('li.offer-item-price') %>%
+  html_text() %>%
+  stri_replace_all(., rep='',regex='\\s+') %>% 
+  stri_extract_all(., regex = '\\d+') %>%
+  unlist() %>%
+  as.numeric()
+
+head(offer_total_price)
+
+offer_floor_area <- offers %>% 
+  html_nodes('li.hidden-xs.offer-item-area') %>%
+  html_text() %>%
+  stri_replace_all(., rep='',regex='m²|\\s+') %>% 
+  stri_replace_all(., rep='.',fixed=',') %>% 
+  unlist() %>%
+  as.numeric()
+
+head(offer_floor_area)
+
+plot(x = offer_floor_area,
+     y = offer_total_price/1000,
+     xlab = 'Floor area (m2)',
+     ylab = 'Price for property in k PLN')
+```
+
+
 ### Full code for Morizon
 
-### Scrape data for Warsaw 
+#### Scrape data for Warsaw 
 
 We scrape data from Morizon's web statistics. 
 
@@ -69,7 +214,7 @@ prices %>%
   )
 ```
 
-### Scrape data for other cities
+#### Scrape data for other cities
 
 ```{r morizon-other-cities}
 links <- 'http://www.morizon.pl/ceny/' %>%

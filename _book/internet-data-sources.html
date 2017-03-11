@@ -117,9 +117,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="internet-data-sources.html"><a href="internet-data-sources.html"><i class="fa fa-check"></i><b>4</b> Internet data sources</a><ul>
-<li class="chapter" data-level="4.1" data-path="internet-data-sources.html"><a href="internet-data-sources.html#scrape-data"><i class="fa fa-check"></i><b>4.1</b> Scrape data</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="internet-data-sources.html"><a href="internet-data-sources.html#scrape-data-for-warsaw"><i class="fa fa-check"></i><b>4.1.1</b> Scrape data for Warsaw</a></li>
-<li class="chapter" data-level="4.1.2" data-path="internet-data-sources.html"><a href="internet-data-sources.html#scrape-data-for-other-cities"><i class="fa fa-check"></i><b>4.1.2</b> Scrape data for other cities</a></li>
+<li class="chapter" data-level="4.1" data-path="internet-data-sources.html"><a href="internet-data-sources.html#some-theory"><i class="fa fa-check"></i><b>4.1</b> Some theory</a></li>
+<li class="chapter" data-level="4.2" data-path="internet-data-sources.html"><a href="internet-data-sources.html#scraping-data-from-morizon.pl-step-by-step"><i class="fa fa-check"></i><b>4.2</b> Scraping data from Morizon.pl – step by step</a></li>
+<li class="chapter" data-level="4.3" data-path="internet-data-sources.html"><a href="internet-data-sources.html#scraping-data-from-otodom.pl-step-by-step"><i class="fa fa-check"></i><b>4.3</b> Scraping data from OtoDom.pl – step by step</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="internet-data-sources.html"><a href="internet-data-sources.html#full-code-for-morizon"><i class="fa fa-check"></i><b>4.3.1</b> Full code for Morizon</a></li>
+<li class="chapter" data-level="4.3.2" data-path="internet-data-sources.html"><a href="internet-data-sources.html#full-code-for-otodom"><i class="fa fa-check"></i><b>4.3.2</b> Full code for OtoDom</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="characteristics-of-real-estate-market-in-poland-and-europe.html"><a href="characteristics-of-real-estate-market-in-poland-and-europe.html"><i class="fa fa-check"></i><b>5</b> Characteristics of Real Estate Market in Poland and Europe</a></li>
@@ -153,30 +155,162 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="internet-data-sources" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Internet data sources</h1>
-<div id="scrape-data" class="section level2">
-<h2><span class="header-section-number">4.1</span> Scrape data</h2>
-<div class="figure">
-<img src="images/ch3/morizon1.png" />
-
+<div id="some-theory" class="section level2">
+<h2><span class="header-section-number">4.1</span> Some theory</h2>
 </div>
-<div class="figure">
-<img src="images/ch3/morizon2.png" />
-
+<div id="scraping-data-from-morizon.pl-step-by-step" class="section level2">
+<h2><span class="header-section-number">4.2</span> Scraping data from Morizon.pl – step by step</h2>
+<p>We enter the following page <a href="http://www.morizon.pl/ceny/" class="uri">http://www.morizon.pl/ceny/</a> which by default loads data for Warsaw. This is presented on Figure <a href="internet-data-sources.html#fig:morizon1">4.1</a></p>
+<div class="figure"><span id="fig:morizon1"></span>
+<img src="images/ch3/morizon1.png" alt="Morizon" width="1021" />
+<p class="caption">
+Figure 4.1: Morizon
+</p>
 </div>
-<div class="figure">
-<img src="images/ch3/morizon3.png" />
-
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">doc &lt;-<span class="st"> </span><span class="kw">read_html</span>(<span class="st">&#39;http://www.morizon.pl/ceny/&#39;</span>)</code></pre></div>
+<p>To check where the data is click right mouse and “inspect element”. This is presented on Figure <a href="internet-data-sources.html#fig:morizon2">4.2</a>.</p>
+<div class="figure"><span id="fig:morizon2"></span>
+<img src="images/ch3/morizon2.png" alt="Morizon -- inspect element" width="462" />
+<p class="caption">
+Figure 4.2: Morizon – inspect element
+</p>
 </div>
-<div class="figure">
-<img src="images/ch3/morizon4.png" />
-
+<p>Search for the line with <code>&lt;script type='text/javascript'&gt;...&lt;/script&gt;</code>. This is presented on Figure <a href="internet-data-sources.html#fig:morizon3">4.3</a> and <a href="internet-data-sources.html#fig:morizon4">4.4</a>.</p>
+<div class="figure"><span id="fig:morizon3"></span>
+<img src="images/ch3/morizon3.png" alt="Morizon -- script (text/javascript)" width="625" />
+<p class="caption">
+Figure 4.3: Morizon – script (text/javascript)
+</p>
 </div>
-<div class="figure">
-<img src="images/ch3/morizon5.png" />
-
+<div class="figure"><span id="fig:morizon4"></span>
+<img src="images/ch3/morizon4.png" alt="Morizon" width="569" />
+<p class="caption">
+Figure 4.4: Morizon
+</p>
 </div>
-<div id="scrape-data-for-warsaw" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> Scrape data for Warsaw</h3>
+<p>To get this into R use the following code to gather the data referring to all scripts. Next, we need to look for specific text that is presented on Figure <a href="internet-data-sources.html#fig:morizon5">4.5</a>, in particular we seek for <code>newDate.setYear</code> or <code>newDate.setMonth</code> or <code>newDate.setDate</code> or other from <code>chartData.push</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scripts &lt;-<span class="st"> </span>doc %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;script&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">html_text</span>()</code></pre></div>
+<div class="figure"><span id="fig:morizon5"></span>
+<img src="images/ch3/morizon5.png" alt="Morizon" width="338" />
+<p class="caption">
+Figure 4.5: Morizon
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flag &lt;-<span class="st"> </span><span class="kw">stri_detect</span>(<span class="dt">str =</span> scripts, <span class="dt">fixed =</span> <span class="st">&#39;newDate.setMonth&#39;</span>)
+flag</code></pre></div>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [12] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
+## [23] FALSE FALSE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">selected &lt;-<span class="st"> </span>scripts[flag]
+
+<span class="kw">length</span>(selected)</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>Now, we will work only on the one element of <code>selected</code> list for clarity, which refers to overall price for m2.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">warsaw &lt;-<span class="st"> </span>selected[[<span class="dv">1</span>]]</code></pre></div>
+<p>We need to match the following strings and I provide a regular expression code to extract them.</p>
+<ul>
+<li><code>setYear(2006)</code> – <code>setYear\\(\\d{4}\\)</code></li>
+<li><code>setMonth(11)</code> – <code>setMonth\\(\\d{1,2}\\)</code></li>
+<li><code>setDate(1)</code> – <code>setDate\\(\\d{1,2}\\)</code></li>
+<li><code>visits: 8560</code> – <code>visits\\:\\s+\\d{1,5}</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prices &lt;-<span class="st"> </span><span class="kw">stri_extract</span>(<span class="dt">str =</span> warsaw,
+                       <span class="dt">regex =</span> <span class="st">&#39;visits</span><span class="ch">\\</span><span class="st">:</span><span class="ch">\\</span><span class="st">s+</span><span class="ch">\\</span><span class="st">d{1,5}&#39;</span>,
+                       <span class="dt">mode =</span> <span class="st">&#39;all&#39;</span>)
+prices &lt;-<span class="st"> </span><span class="kw">unlist</span>(prices)
+<span class="kw">head</span>(prices)</code></pre></div>
+<pre><code>## [1] &quot;visits: 8560&quot; &quot;visits: 8656&quot; &quot;visits: 9017&quot; &quot;visits: 9296&quot;
+## [5] &quot;visits: 9366&quot; &quot;visits: 9540&quot;</code></pre>
+<p>From this, we need to exctract only numeric characters</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prices &lt;-<span class="st"> </span><span class="kw">stri_extract</span>(<span class="dt">str =</span> prices,
+                       <span class="dt">regex =</span> <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+&#39;</span>,
+                       <span class="dt">mode =</span> <span class="st">&#39;all&#39;</span>,
+                       <span class="dt">simplify =</span> T)
+prices &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(prices) 
+<span class="kw">plot</span>(prices, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">xlab =</span> <span class="st">&#39;Time&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Price PLN/m2&#39;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="scraping-data-from-otodom.pl-step-by-step" class="section level2">
+<h2><span class="header-section-number">4.3</span> Scraping data from OtoDom.pl – step by step</h2>
+<div class="figure"><span id="fig:otodom1"></span>
+<img src="images/ch3/otodom1.png" alt="Otodom" width="1192" />
+<p class="caption">
+Figure 4.6: Otodom
+</p>
+</div>
+<div class="figure"><span id="fig:otodom2"></span>
+<img src="images/ch3/otodom2.png" alt="Otodom" width="1172" />
+<p class="caption">
+Figure 4.7: Otodom
+</p>
+</div>
+<div class="figure"><span id="fig:otodom3"></span>
+<img src="images/ch3/otodom3.png" alt="Otodom" width="1167" />
+<p class="caption">
+Figure 4.8: Otodom
+</p>
+</div>
+<p><a href="https://www.otodom.pl/sprzedaz/mieszkanie/poznan/?search%5Bfilter_enum_market%5D%5B0%5D=secondary&amp;search%5Bdescription%5D=1&amp;search%5Bcreated_since%5D=14&amp;search%5Bdist%5D=0">https://www.otodom.pl/sprzedaz/mieszkanie/poznan/?search%5Bfilter_enum_market%5D%5B0%5D=secondary&amp;search%5Bdescription%5D=1&amp;search%5Bcreated_since%5D=14&amp;search%5Bdist%5D=0</a></p>
+<p>We need to add page numer <code>&amp;page=1</code>, so we will be able to scrape all result pages.</p>
+<p><a href="https://www.otodom.pl/sprzedaz/mieszkanie/poznan/?search%5Bfilter_enum_market%5D%5B0%5D=secondary&amp;search%5Bdescription%5D=1&amp;search%5Bcreated_since%5D=14&amp;search%5Bdist%5D=0&amp;page=1">https://www.otodom.pl/sprzedaz/mieszkanie/poznan/?search%5Bfilter_enum_market%5D%5B0%5D=secondary&amp;search%5Bdescription%5D=1&amp;search%5Bcreated_since%5D=14&amp;search%5Bdist%5D=0&amp;page=1</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &#39;https://www.otodom.pl/sprzedaz/mieszkanie/poznan/?search%5Bfilter_enum_market%5D%5B0%5D=secondary&amp;search%5Bdescription%5D=1&amp;search%5Bcreated_since%5D=14&amp;search%5Bdist%5D=0&amp;page=1&#39;</span>
+doc &lt;-<span class="st"> </span><span class="kw">read_html</span>(url)</code></pre></div>
+<div class="figure"><span id="fig:otodom4"></span>
+<img src="images/ch3/otodom5.png" alt="Otodom" width="846" />
+<p class="caption">
+Figure 4.9: Otodom
+</p>
+</div>
+<div class="figure"><span id="fig:otodom4"></span>
+<img src="images/ch3/otodom6.png" alt="Otodom" width="895" />
+<p class="caption">
+Figure 4.9: Otodom
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">offers &lt;-<span class="st"> </span>doc %&gt;%<span class="st"> </span><span class="kw">html_nodes</span>(<span class="st">&#39;div.offer-item-details&#39;</span>)
+
+offer_title &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;span.offer-item-title&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">html_text</span>()
+
+<span class="kw">head</span>(offer_title)</code></pre></div>
+<pre><code>## [1] &quot;POZNAŃ Nowe Mieszkanie Grunwald&quot;                   
+## [2] &quot;PROMOCJA! 275.000 zł za 75 m², 4 pokoje, taras.&quot;   
+## [3] &quot;Funkcjonalne Kominek, Ogródek, Osiedle Zamknięte !&quot;
+## [4] &quot;Mieszkanie 39 m2 za 192 750 zł! Parking w cenie!!!&quot;
+## [5] &quot;Mieszkanie Poznań Żegrze blok 4- piętrowy od zaraz&quot;
+## [6] &quot;Mieszkanie, 37 m², Poznań - Rataje, BEZPOŚREDNIO&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">offer_total_price &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;li.offer-item-price&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">html_text</span>() %&gt;%
+<span class="st">  </span><span class="kw">stri_replace_all</span>(., <span class="dt">rep=</span><span class="st">&#39;&#39;</span>,<span class="dt">regex=</span><span class="st">&#39;</span><span class="ch">\\</span><span class="st">s+&#39;</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">stri_extract_all</span>(., <span class="dt">regex =</span> <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">unlist</span>() %&gt;%
+<span class="st">  </span><span class="kw">as.numeric</span>()
+
+<span class="kw">head</span>(offer_total_price)</code></pre></div>
+<pre><code>## [1] 300000 275000 339000 192750 289000 220000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">offer_floor_area &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;li.hidden-xs.offer-item-area&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">html_text</span>() %&gt;%
+<span class="st">  </span><span class="kw">stri_replace_all</span>(., <span class="dt">rep=</span><span class="st">&#39;&#39;</span>,<span class="dt">regex=</span><span class="st">&#39;m²|</span><span class="ch">\\</span><span class="st">s+&#39;</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">stri_replace_all</span>(., <span class="dt">rep=</span><span class="st">&#39;.&#39;</span>,<span class="dt">fixed=</span><span class="st">&#39;,&#39;</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">unlist</span>() %&gt;%
+<span class="st">  </span><span class="kw">as.numeric</span>()
+
+<span class="kw">head</span>(offer_floor_area)</code></pre></div>
+<pre><code>## [1] 45.79 74.98 73.00 38.55 53.00 37.00</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> offer_floor_area,
+     <span class="dt">y =</span> offer_total_price/<span class="dv">1000</span>,
+     <span class="dt">xlab =</span> <span class="st">&#39;Floor area (m2)&#39;</span>,
+     <span class="dt">ylab =</span> <span class="st">&#39;Price for property in k PLN&#39;</span>)</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div id="full-code-for-morizon" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Full code for Morizon</h3>
+<div id="scrape-data-for-warsaw" class="section level4">
+<h4><span class="header-section-number">4.3.1.1</span> Scrape data for Warsaw</h4>
 <p>We scrape data from Morizon’s web statistics.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prices &lt;-<span class="st"> &#39;http://www.morizon.pl/ceny/&#39;</span> %&gt;%
 <span class="st">  </span>read_html %&gt;%
@@ -221,8 +355,8 @@ prices %&gt;%
   )</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/morizon-warsaw-only-1.png" width="672" /></p>
 </div>
-<div id="scrape-data-for-other-cities" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> Scrape data for other cities</h3>
+<div id="scrape-data-for-other-cities" class="section level4">
+<h4><span class="header-section-number">4.3.1.2</span> Scrape data for other cities</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">links &lt;-<span class="st"> &#39;http://www.morizon.pl/ceny/&#39;</span> %&gt;%
 <span class="st">  </span>read_html %&gt;%
 <span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;select.cities_select option&#39;</span>) %&gt;%
@@ -270,6 +404,10 @@ prices_cities %&gt;%
     <span class="dt">caption =</span> <span class="st">&#39;Source: http://www.morizon.pl/ceny/&#39;</span>
   )</code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/morizon-other-cities-1.png" width="672" /></p>
+</div>
+</div>
+<div id="full-code-for-otodom" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Full code for OtoDom</h3>
 
 </div>
 </div>
