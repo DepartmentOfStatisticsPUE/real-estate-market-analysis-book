@@ -1,16 +1,36 @@
 # Internet data sources
 
 
-## Scrape data
+## Some theory
 
+
+## Scraping data from Morizon.pl -- step by step 
+
+
+![](images/ch3/morizon1.png)
+
+![](images/ch3/morizon2.png)
+
+![](images/ch3/morizon3.png)
+
+![](images/ch3/morizon4.png)
+
+![](images/ch3/morizon5.png)
+
+## Scraping data from OtoDom.pl -- step by step 
+
+### Full code for Morizon
+
+### Scrape data for Warsaw 
 
 We scrape data from Morizon's web statistics. 
 
-```{r}
+```{r morizon-warsaw-only}
 prices <- 'http://www.morizon.pl/ceny/' %>%
   read_html %>%
   html_nodes('script') %>%
-  html_text() %>% .[stri_detect(str = ., regex = 'newDate.setYear')] %>%
+  html_text() %>% 
+  .[stri_detect(str = ., regex = 'newDate.setYear')] %>%
   stri_extract_all(regex = 'setYear\\(\\d{4}\\)|setMonth\\(\\d{1,2}\\)|setDate\\(\\d{1,2}\\)|visits\\:\\s{1}\\d{4,5}') %>%
   stri_extract_all(regex = '\\d{1,}') %>%
   lapply(., function(x) {
@@ -49,9 +69,9 @@ prices %>%
   )
 ```
 
-Scrape data for other cities
+### Scrape data for other cities
 
-```{r obtain links}
+```{r morizon-other-cities}
 links <- 'http://www.morizon.pl/ceny/' %>%
   read_html %>%
   html_nodes('select.cities_select option') %>%
@@ -63,7 +83,8 @@ prices_cities <- lapply(links, function(x) {
   x %>%
   read_html %>%
   html_nodes('script') %>%
-  html_text() %>% .[stri_detect(str = ., regex = 'newDate.setYear')] %>%
+  html_text() %>% 
+    .[stri_detect(str = ., regex = 'newDate.setYear')] %>%
   stri_extract_all(regex = 'setYear\\(\\d{4}\\)|setMonth\\(\\d{1,2}\\)|setDate\\(\\d{1,2}\\)|visits\\:\\s{1}\\d{4,5}') %>%
   stri_extract_all(regex = '\\d{1,}') %>%
   unlist() %>%
@@ -99,6 +120,6 @@ prices_cities %>%
   )
 ```
 
-
+### Full code for OtoDom
 
 
