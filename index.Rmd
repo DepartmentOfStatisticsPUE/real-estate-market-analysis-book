@@ -17,7 +17,17 @@ description: "Materials for Real Estate Market Analysis course conducted at Pozn
 Load the required packages
 
 ```{r message= FALSE, warning=FALSE}
-library(tidyverse)
-library(zoo)
+library(tidyverse) ## data processing and visualsiation
+library(zoo) ## parsing quarterly data
+library(rvest) ## scraping tools
+library(OECD) ## data from OECD
+library(eurostat) ## data from eurostat
+library(nlme) ## mixed models with nice covariance structures
+library(ggmap) ### plot data on maps 
+library(quantreg) ### 
+library(stringi) ## regular expressions
+library(lubridate)
+theme_set(theme_bw())
 ```
+
 

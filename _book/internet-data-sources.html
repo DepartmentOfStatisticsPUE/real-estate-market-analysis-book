@@ -26,7 +26,7 @@
 <meta name="author" content="Maciej Beręsewicz">
 
 
-<meta name="date" content="2017-03-06">
+<meta name="date" content="2017-03-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -116,7 +116,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3.1" data-path="data-sources.html"><a href="data-sources.html#oecd-package"><i class="fa fa-check"></i><b>3.3.1</b> OECD package</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="internet-data-sources.html"><a href="internet-data-sources.html"><i class="fa fa-check"></i><b>4</b> Internet data sources</a></li>
+<li class="chapter" data-level="4" data-path="internet-data-sources.html"><a href="internet-data-sources.html"><i class="fa fa-check"></i><b>4</b> Internet data sources</a><ul>
+<li class="chapter" data-level="4.1" data-path="internet-data-sources.html"><a href="internet-data-sources.html#scrape-data"><i class="fa fa-check"></i><b>4.1</b> Scrape data</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="characteristics-of-real-estate-market-in-poland-and-europe.html"><a href="characteristics-of-real-estate-market-in-poland-and-europe.html"><i class="fa fa-check"></i><b>5</b> Characteristics of Real Estate Market in Poland and Europe</a></li>
 <li class="chapter" data-level="6" data-path="descriptives-statistics-as-basic-method-of-analysis-of-real-estate-market.html"><a href="descriptives-statistics-as-basic-method-of-analysis-of-real-estate-market.html"><i class="fa fa-check"></i><b>6</b> Descriptives statistics as basic method of analysis of Real Estate Market</a></li>
 <li class="chapter" data-level="7" data-path="data-cleaning-techniques-and-outliers-detection.html"><a href="data-cleaning-techniques-and-outliers-detection.html"><i class="fa fa-check"></i><b>7</b> Data cleaning techniques and outliers detection</a></li>
@@ -148,7 +150,52 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="internet-data-sources" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Internet data sources</h1>
+<div id="scrape-data" class="section level2">
+<h2><span class="header-section-number">4.1</span> Scrape data</h2>
+<p>We scrape data from Morizon’s web statistics.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prices &lt;-<span class="st"> &#39;http://www.morizon.pl/ceny/&#39;</span> %&gt;%
+<span class="st">  </span>read_html %&gt;%
+<span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;script&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">html_text</span>() %&gt;%<span class="st"> </span>.[<span class="kw">stri_detect</span>(<span class="dt">str =</span> ., <span class="dt">regex =</span> <span class="st">&#39;newDate.setYear&#39;</span>)] %&gt;%
+<span class="st">  </span><span class="kw">stri_extract_all</span>(<span class="dt">regex =</span> <span class="st">&#39;setYear</span><span class="ch">\\</span><span class="st">(</span><span class="ch">\\</span><span class="st">d{4}</span><span class="ch">\\</span><span class="st">)|setMonth</span><span class="ch">\\</span><span class="st">(</span><span class="ch">\\</span><span class="st">d{1,2}</span><span class="ch">\\</span><span class="st">)|setDate</span><span class="ch">\\</span><span class="st">(</span><span class="ch">\\</span><span class="st">d{1,2}</span><span class="ch">\\</span><span class="st">)|visits</span><span class="ch">\\</span><span class="st">:</span><span class="ch">\\</span><span class="st">s{1}</span><span class="ch">\\</span><span class="st">d{4,5}&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">stri_extract_all</span>(<span class="dt">regex =</span> <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d{1,}&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">lapply</span>(., function(x) {
+  x %&gt;%
+<span class="st">  </span><span class="kw">as.numeric</span>() %&gt;%
+<span class="st">  </span><span class="kw">matrix</span>(<span class="dt">ncol =</span> <span class="dv">4</span>, <span class="dt">byrow =</span> T) %&gt;%
+<span class="st">  </span><span class="kw">as.data.frame</span>() %&gt;%
+<span class="st">      </span><span class="kw">rename</span>(
+        <span class="dt">year =</span> V1,
+        <span class="dt">month =</span> V2,
+        <span class="dt">day =</span> V3,
+        <span class="dt">pricem2 =</span> V4) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">ymd</span>(<span class="kw">paste</span>(year, month +<span class="st"> </span><span class="dv">1</span>, day, <span class="dt">sep =</span> <span class="st">&#39;-&#39;</span>)))
+  })
+  
+prices[[<span class="dv">1</span>]]$stat &lt;-<span class="st"> &#39;overall&#39;</span>
+prices[[<span class="dv">2</span>]]$stat &lt;-<span class="st"> &#39;1 room&#39;</span>
+prices[[<span class="dv">3</span>]]$stat &lt;-<span class="st"> &#39;2 rooms&#39;</span>
+prices[[<span class="dv">4</span>]]$stat &lt;-<span class="st"> &#39;3 rooms&#39;</span>
+prices[[<span class="dv">5</span>]]$stat &lt;-<span class="st"> &#39;4 rooms&#39;</span>
 
+
+prices %&gt;%
+<span class="st">  </span><span class="kw">bind_rows</span>() %&gt;%
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">data =</span> ,
+  <span class="kw">aes</span>(<span class="dt">x =</span> date,
+      <span class="dt">y =</span> pricem2,
+      <span class="dt">group =</span> stat,
+      <span class="dt">colour =</span> stat)) +
+<span class="st">  </span><span class="kw">geom_line</span>() +
+<span class="st">  </span><span class="kw">labs</span>(
+    <span class="dt">x  =</span> <span class="st">&#39;Day&#39;</span>,
+    <span class="dt">y =</span> <span class="st">&#39;Price / m2&#39;</span>,
+    <span class="dt">title =</span> <span class="st">&#39;Average price m2 for Warsaw&#39;</span>,
+    <span class="dt">caption =</span> <span class="st">&#39;Source: http://www.morizon.pl/ceny/&#39;</span>
+  )</code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+
+</div>
 </div>
             </section>
 

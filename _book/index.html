@@ -26,7 +26,7 @@
 <meta name="author" content="Maciej Beręsewicz">
 
 
-<meta name="date" content="2017-03-06">
+<meta name="date" content="2017-03-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -116,7 +116,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3.1" data-path="data-sources.html"><a href="data-sources.html#oecd-package"><i class="fa fa-check"></i><b>3.3.1</b> OECD package</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="internet-data-sources.html"><a href="internet-data-sources.html"><i class="fa fa-check"></i><b>4</b> Internet data sources</a></li>
+<li class="chapter" data-level="4" data-path="internet-data-sources.html"><a href="internet-data-sources.html"><i class="fa fa-check"></i><b>4</b> Internet data sources</a><ul>
+<li class="chapter" data-level="4.1" data-path="internet-data-sources.html"><a href="internet-data-sources.html#scrape-data"><i class="fa fa-check"></i><b>4.1</b> Scrape data</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="characteristics-of-real-estate-market-in-poland-and-europe.html"><a href="characteristics-of-real-estate-market-in-poland-and-europe.html"><i class="fa fa-check"></i><b>5</b> Characteristics of Real Estate Market in Poland and Europe</a></li>
 <li class="chapter" data-level="6" data-path="descriptives-statistics-as-basic-method-of-analysis-of-real-estate-market.html"><a href="descriptives-statistics-as-basic-method-of-analysis-of-real-estate-market.html"><i class="fa fa-check"></i><b>6</b> Descriptives statistics as basic method of analysis of Real Estate Market</a></li>
 <li class="chapter" data-level="7" data-path="data-cleaning-techniques-and-outliers-detection.html"><a href="data-cleaning-techniques-and-outliers-detection.html"><i class="fa fa-check"></i><b>7</b> Data cleaning techniques and outliers detection</a></li>
@@ -149,13 +151,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">Real Estate Market Analysis</h1>
 <h4 class="author"><em>Maciej Beręsewicz</em></h4>
-<h4 class="date"><em>2017-03-06</em></h4>
+<h4 class="date"><em>2017-03-11</em></h4>
 </div>
 <div id="prerequisites" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
 <p>Load the required packages</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(zoo)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse) ## data processing and visualsiation
+<span class="kw">library</span>(zoo) ## parsing quarterly data
+<span class="kw">library</span>(rvest) ## scraping tools
+<span class="kw">library</span>(OECD) ## data from OECD
+<span class="kw">library</span>(eurostat) ## data from eurostat
+<span class="kw">library</span>(nlme) ## mixed models with nice covariance structures
+<span class="kw">library</span>(ggmap) ### plot data on maps 
+<span class="kw">library</span>(quantreg) ### 
+<span class="kw">library</span>(stringi) ## regular expressions
+<span class="kw">library</span>(lubridate)
+<span class="kw">theme_set</span>(<span class="kw">theme_bw</span>())</code></pre></div>
 
 </div>
             </section>

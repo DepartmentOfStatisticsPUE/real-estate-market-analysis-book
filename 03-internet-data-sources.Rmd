@@ -1,1 +1,104 @@
 # Internet data sources
+
+
+## Scrape data
+
+
+We scrape data from Morizon's web statistics. 
+
+```{r}
+prices <- 'http://www.morizon.pl/ceny/' %>%
+  read_html %>%
+  html_nodes('script') %>%
+  html_text() %>% .[stri_detect(str = ., regex = 'newDate.setYear')] %>%
+  stri_extract_all(regex = 'setYear\\(\\d{4}\\)|setMonth\\(\\d{1,2}\\)|setDate\\(\\d{1,2}\\)|visits\\:\\s{1}\\d{4,5}') %>%
+  stri_extract_all(regex = '\\d{1,}') %>%
+  lapply(., function(x) {
+  x %>%
+  as.numeric() %>%
+  matrix(ncol = 4, byrow = T) %>%
+  as.data.frame() %>%
+      rename(
+        year = V1,
+        month = V2,
+        day = V3,
+        pricem2 = V4) %>%
+  mutate(date = ymd(paste(year, month + 1, day, sep = '-')))
+  })
+  
+prices[[1]]$stat <- 'overall'
+prices[[2]]$stat <- '1 room'
+prices[[3]]$stat <- '2 rooms'
+prices[[4]]$stat <- '3 rooms'
+prices[[5]]$stat <- '4 rooms'
+
+
+prices %>%
+  bind_rows() %>%
+  ggplot(data = ,
+  aes(x = date,
+      y = pricem2,
+      group = stat,
+      colour = stat)) +
+  geom_line() +
+  labs(
+    x  = 'Day',
+    y = 'Price / m2',
+    title = 'Average price m2 for Warsaw',
+    caption = 'Source: http://www.morizon.pl/ceny/'
+  )
+```
+
+Scrape data for other cities
+
+```{r obtain links}
+links <- 'http://www.morizon.pl/ceny/' %>%
+  read_html %>%
+  html_nodes('select.cities_select option') %>%
+  html_attr('value') 
+
+links <- links[-c(1,17)]
+
+prices_cities <- lapply(links, function(x) {
+  x %>%
+  read_html %>%
+  html_nodes('script') %>%
+  html_text() %>% .[stri_detect(str = ., regex = 'newDate.setYear')] %>%
+  stri_extract_all(regex = 'setYear\\(\\d{4}\\)|setMonth\\(\\d{1,2}\\)|setDate\\(\\d{1,2}\\)|visits\\:\\s{1}\\d{4,5}') %>%
+  stri_extract_all(regex = '\\d{1,}') %>%
+  unlist() %>%
+  as.numeric() %>%
+  matrix(ncol = 4, byrow = T) %>%
+  as.data.frame() %>%
+      rename(
+        year = V1,
+        month = V2,
+        day = V3,
+        pricem2 = V4) %>%
+  mutate(date = ymd(paste(year, month + 1, day, sep = '-')),
+         city = stri_replace(str = x,
+                             rep = '',
+                             fixed = 'http://www.morizon.pl/ceny/'),
+         city = stri_replace(city,'',fixed='/'))
+}) %>%
+  bind_rows()
+  
+
+prices_cities %>%
+  ggplot(data = ,
+  aes(x = date,
+      y = pricem2,
+      group = city,
+      colour = city)) +
+  geom_line() +
+  labs(
+    x  = 'Day',
+    y = 'Price / m2',
+    title = 'Average price m2',
+    caption = 'Source: http://www.morizon.pl/ceny/'
+  )
+```
+
+
+
+
