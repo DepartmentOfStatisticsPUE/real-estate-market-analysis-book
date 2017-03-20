@@ -26,7 +26,7 @@
 <meta name="author" content="Maciej Beręsewicz">
 
 
-<meta name="date" content="2017-03-11">
+<meta name="date" content="2017-03-14">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -201,8 +201,8 @@ Figure 4.5: Morizon
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flag &lt;-<span class="st"> </span><span class="kw">stri_detect</span>(<span class="dt">str =</span> scripts, <span class="dt">fixed =</span> <span class="st">&#39;newDate.setMonth&#39;</span>)
 flag</code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [12] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
-## [23] FALSE FALSE FALSE</code></pre>
+## [12] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+## [23] FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">selected &lt;-<span class="st"> </span>scripts[flag]
 
 <span class="kw">length</span>(selected)</code></pre></div>
@@ -280,8 +280,8 @@ offer_title &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
 ## [2] &quot;PROMOCJA! 275.000 zł za 75 m², 4 pokoje, taras.&quot;   
 ## [3] &quot;Funkcjonalne Kominek, Ogródek, Osiedle Zamknięte !&quot;
 ## [4] &quot;Mieszkanie 39 m2 za 192 750 zł! Parking w cenie!!!&quot;
-## [5] &quot;Mieszkanie Poznań Żegrze blok 4- piętrowy od zaraz&quot;
-## [6] &quot;Mieszkanie, 37 m², Poznań - Rataje, BEZPOŚREDNIO&quot;</code></pre>
+## [5] &quot;2 pokoje, Poznań ul. Czysta wyposażone do wprowadz&quot;
+## [6] &quot;Mieszkanie, 71 m², Poznań&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">offer_total_price &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;li.offer-item-price&#39;</span>) %&gt;%
 <span class="st">  </span><span class="kw">html_text</span>() %&gt;%
@@ -291,7 +291,7 @@ offer_title &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">as.numeric</span>()
 
 <span class="kw">head</span>(offer_total_price)</code></pre></div>
-<pre><code>## [1] 300000 275000 339000 192750 289000 220000</code></pre>
+<pre><code>## [1] 300000 275000 339000 192750 257000 385000</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">offer_floor_area &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;li.hidden-xs.offer-item-area&#39;</span>) %&gt;%
 <span class="st">  </span><span class="kw">html_text</span>() %&gt;%
@@ -301,7 +301,7 @@ offer_title &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">as.numeric</span>()
 
 <span class="kw">head</span>(offer_floor_area)</code></pre></div>
-<pre><code>## [1] 45.79 74.98 73.00 38.55 53.00 37.00</code></pre>
+<pre><code>## [1] 45.79 74.98 73.00 38.55 47.00 71.00</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> offer_floor_area,
      <span class="dt">y =</span> offer_total_price/<span class="dv">1000</span>,
      <span class="dt">xlab =</span> <span class="st">&#39;Floor area (m2)&#39;</span>,
