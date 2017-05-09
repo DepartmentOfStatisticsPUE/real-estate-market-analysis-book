@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Real Estate Market Analysis</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Materials for Real Estate Market Analysis course conducted at Poznań University of Economics and Business">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3.17 and GitBook 2.6.7">
 
   <meta property="og:title" content="Real Estate Market Analysis" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Maciej Beręsewicz">
 
 
-<meta name="date" content="2017-03-14">
+<meta name="date" content="2017-05-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="data-sources.html">
 <link rel="next" href="characteristics-of-real-estate-market-in-poland-and-europe.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -95,6 +93,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <body>
 
 
+
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
     <div class="book-summary">
@@ -126,13 +125,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="characteristics-of-real-estate-market-in-poland-and-europe.html"><a href="characteristics-of-real-estate-market-in-poland-and-europe.html"><i class="fa fa-check"></i><b>5</b> Characteristics of Real Estate Market in Poland and Europe</a></li>
 <li class="chapter" data-level="6" data-path="descriptives-statistics-as-basic-method-of-analysis-of-real-estate-market.html"><a href="descriptives-statistics-as-basic-method-of-analysis-of-real-estate-market.html"><i class="fa fa-check"></i><b>6</b> Descriptives statistics as basic method of analysis of Real Estate Market</a></li>
-<li class="chapter" data-level="7" data-path="data-cleaning-techniques-and-outliers-detection.html"><a href="data-cleaning-techniques-and-outliers-detection.html"><i class="fa fa-check"></i><b>7</b> Data cleaning techniques and outliers detection</a></li>
+<li class="chapter" data-level="7" data-path="data-cleaning-techniques-and-outliers-detection.html"><a href="data-cleaning-techniques-and-outliers-detection.html"><i class="fa fa-check"></i><b>7</b> Data cleaning techniques and outliers detection</a><ul>
+<li class="chapter" data-level="7.1" data-path="data-cleaning-techniques-and-outliers-detection.html"><a href="data-cleaning-techniques-and-outliers-detection.html#outliers-and-influence-measures"><i class="fa fa-check"></i><b>7.1</b> Outliers and influence measures</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="indices.html"><a href="indices.html"><i class="fa fa-check"></i><b>8</b> Indices</a></li>
 <li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a></li>
 <li class="chapter" data-level="10" data-path="gis-tools.html"><a href="gis-tools.html"><i class="fa fa-check"></i><b>10</b> GIS Tools</a></li>
 <li class="chapter" data-level="11" data-path="spatial-models.html"><a href="spatial-models.html"><i class="fa fa-check"></i><b>11</b> Spatial models</a></li>
 <li class="chapter" data-level="12" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>12</b> Forecasting</a></li>
 <li class="chapter" data-level="13" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>13</b> References</a></li>
+<li class="chapter" data-level="14" data-path="additional-topics.html"><a href="additional-topics.html"><i class="fa fa-check"></i><b>14</b> Additional topics</a><ul>
+<li class="chapter" data-level="14.1" data-path="additional-topics.html"><a href="additional-topics.html#regular-expressions"><i class="fa fa-check"></i><b>14.1</b> Regular expressions</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="additional-topics.html"><a href="additional-topics.html#introduction-to-stringi-package"><i class="fa fa-check"></i><b>14.1.1</b> Introduction to <code>stringi</code> package</a></li>
+<li class="chapter" data-level="14.1.2" data-path="additional-topics.html"><a href="additional-topics.html#basic-notation"><i class="fa fa-check"></i><b>14.1.2</b> Basic notation</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="additional-topics.html"><a href="additional-topics.html#examples"><i class="fa fa-check"></i><b>14.2</b> Examples</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="additional-topics.html"><a href="additional-topics.html#extract-digits"><i class="fa fa-check"></i><b>14.2.1</b> Extract digits</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -154,7 +164,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="internet-data-sources" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Internet data sources</h1>
+<h1><span class="header-section-number">4</span> Internet data sources</h1>
 <div id="some-theory" class="section level2">
 <h2><span class="header-section-number">4.1</span> Some theory</h2>
 </div>
@@ -202,7 +212,7 @@ Figure 4.5: Morizon
 flag</code></pre></div>
 <pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [12] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
-## [23] FALSE</code></pre>
+## [23] FALSE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">selected &lt;-<span class="st"> </span>scripts[flag]
 
 <span class="kw">length</span>(selected)</code></pre></div>
@@ -230,7 +240,7 @@ prices &lt;-<span class="st"> </span><span class="kw">unlist</span>(prices)
                        <span class="dt">simplify =</span> T)
 prices &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(prices) 
 <span class="kw">plot</span>(prices, <span class="dt">type =</span> <span class="st">&#39;l&#39;</span>, <span class="dt">xlab =</span> <span class="st">&#39;Time&#39;</span>, <span class="dt">ylab =</span> <span class="st">&#39;Price PLN/m2&#39;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
 <div id="scraping-data-from-otodom.pl-step-by-step" class="section level2">
 <h2><span class="header-section-number">4.3</span> Scraping data from OtoDom.pl – step by step</h2>
@@ -276,22 +286,23 @@ offer_title &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">html_text</span>()
 
 <span class="kw">head</span>(offer_title)</code></pre></div>
-<pre><code>## [1] &quot;POZNAŃ Nowe Mieszkanie Grunwald&quot;                   
-## [2] &quot;PROMOCJA! 275.000 zł za 75 m², 4 pokoje, taras.&quot;   
-## [3] &quot;Funkcjonalne Kominek, Ogródek, Osiedle Zamknięte !&quot;
-## [4] &quot;Mieszkanie 39 m2 za 192 750 zł! Parking w cenie!!!&quot;
-## [5] &quot;2 pokoje, Poznań ul. Czysta wyposażone do wprowadz&quot;
-## [6] &quot;Mieszkanie, 71 m², Poznań&quot;</code></pre>
+<pre><code>## [1] &quot;GRUNWALD 2-pok, 50m2 z garażem i skrytką&quot;          
+## [2] &quot;Ogródek, Kominek, os. Zamknięte - Bliskie Tobie!&quot;  
+## [3] &quot;Nowe mieszkanie, CYTADELA CENTRUM, deweloper&quot;      
+## [4] &quot;Kup I Wynajmij Gotowy, Wyposażony Mikroapartament&quot; 
+## [5] &quot;Armii Krajowej 111 - BEZPOŚREDNIO 3 pok., ogródek&quot; 
+## [6] &quot;3 pokoje UkładNiezależny Wysoki Standard Winogrady&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">offer_total_price &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;li.offer-item-price&#39;</span>) %&gt;%
 <span class="st">  </span><span class="kw">html_text</span>() %&gt;%
+<span class="st">  </span><span class="kw">stri_replace_all</span>(., <span class="dt">rep=</span><span class="st">&#39;.&#39;</span>,<span class="dt">fixed=</span><span class="st">&#39;,&#39;</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">stri_replace_all</span>(., <span class="dt">rep=</span><span class="st">&#39;&#39;</span>,<span class="dt">regex=</span><span class="st">&#39;</span><span class="ch">\\</span><span class="st">s+&#39;</span>) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">stri_extract_all</span>(., <span class="dt">regex =</span> <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">stri_extract_all</span>(., <span class="dt">regex =</span> <span class="st">&#39;</span><span class="ch">\\</span><span class="st">d+(</span><span class="ch">\\</span><span class="st">.</span><span class="ch">\\</span><span class="st">d+)?&#39;</span>) %&gt;%
 <span class="st">  </span><span class="kw">unlist</span>() %&gt;%
 <span class="st">  </span><span class="kw">as.numeric</span>()
 
 <span class="kw">head</span>(offer_total_price)</code></pre></div>
-<pre><code>## [1] 300000 275000 339000 192750 257000 385000</code></pre>
+<pre><code>## [1] 305000.0 339000.0 536900.0 220868.6 359000.0 299000.0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">offer_floor_area &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">html_nodes</span>(<span class="st">&#39;li.hidden-xs.offer-item-area&#39;</span>) %&gt;%
 <span class="st">  </span><span class="kw">html_text</span>() %&gt;%
@@ -301,12 +312,12 @@ offer_title &lt;-<span class="st"> </span>offers %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">as.numeric</span>()
 
 <span class="kw">head</span>(offer_floor_area)</code></pre></div>
-<pre><code>## [1] 45.79 74.98 73.00 38.55 47.00 71.00</code></pre>
+<pre><code>## [1] 50.00 72.93 70.92 24.94 65.00 48.00</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dt">x =</span> offer_floor_area,
      <span class="dt">y =</span> offer_total_price/<span class="dv">1000</span>,
      <span class="dt">xlab =</span> <span class="st">&#39;Floor area (m2)&#39;</span>,
      <span class="dt">ylab =</span> <span class="st">&#39;Price for property in k PLN&#39;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <div id="full-code-for-morizon" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Full code for Morizon</h3>
 <div id="scrape-data-for-warsaw" class="section level4">
@@ -353,7 +364,7 @@ prices %&gt;%
     <span class="dt">title =</span> <span class="st">&#39;Average price m2 for Warsaw&#39;</span>,
     <span class="dt">caption =</span> <span class="st">&#39;Source: http://www.morizon.pl/ceny/&#39;</span>
   )</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/morizon-warsaw-only-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/morizon-warsaw-only-1.png" width="672" /></p>
 </div>
 <div id="scrape-data-for-other-cities" class="section level4">
 <h4><span class="header-section-number">4.3.1.2</span> Scrape data for other cities</h4>
@@ -403,7 +414,7 @@ prices_cities %&gt;%
     <span class="dt">title =</span> <span class="st">&#39;Average price m2&#39;</span>,
     <span class="dt">caption =</span> <span class="st">&#39;Source: http://www.morizon.pl/ceny/&#39;</span>
   )</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/morizon-other-cities-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/morizon-other-cities-1.png" width="672" /></p>
 </div>
 </div>
 <div id="full-code-for-otodom" class="section level3">
@@ -418,8 +429,9 @@ prices_cities %&gt;%
         </div>
       </div>
 <a href="data-sources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="characteristics-of-real-estate-market-in-poland-and-europe.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="characteristics-of-real-estate-market-in-poland-and-europe.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -457,6 +469,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

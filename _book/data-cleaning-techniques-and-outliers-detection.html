@@ -6,9 +6,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Real Estate Market Analysis</title>
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <meta name="description" content="Materials for Real Estate Market Analysis course conducted at Poznań University of Economics and Business">
-  <meta name="generator" content="bookdown 0.3 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.3.17 and GitBook 2.6.7">
 
   <meta property="og:title" content="Real Estate Market Analysis" />
   <meta property="og:type" content="book" />
@@ -26,7 +25,7 @@
 <meta name="author" content="Maciej Beręsewicz">
 
 
-<meta name="date" content="2017-03-14">
+<meta name="date" content="2017-05-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="descriptives-statistics-as-basic-method-of-analysis-of-real-estate-market.html">
 <link rel="next" href="indices.html">
-
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -95,6 +93,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <body>
 
 
+
   <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
 
     <div class="book-summary">
@@ -126,13 +125,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="5" data-path="characteristics-of-real-estate-market-in-poland-and-europe.html"><a href="characteristics-of-real-estate-market-in-poland-and-europe.html"><i class="fa fa-check"></i><b>5</b> Characteristics of Real Estate Market in Poland and Europe</a></li>
 <li class="chapter" data-level="6" data-path="descriptives-statistics-as-basic-method-of-analysis-of-real-estate-market.html"><a href="descriptives-statistics-as-basic-method-of-analysis-of-real-estate-market.html"><i class="fa fa-check"></i><b>6</b> Descriptives statistics as basic method of analysis of Real Estate Market</a></li>
-<li class="chapter" data-level="7" data-path="data-cleaning-techniques-and-outliers-detection.html"><a href="data-cleaning-techniques-and-outliers-detection.html"><i class="fa fa-check"></i><b>7</b> Data cleaning techniques and outliers detection</a></li>
+<li class="chapter" data-level="7" data-path="data-cleaning-techniques-and-outliers-detection.html"><a href="data-cleaning-techniques-and-outliers-detection.html"><i class="fa fa-check"></i><b>7</b> Data cleaning techniques and outliers detection</a><ul>
+<li class="chapter" data-level="7.1" data-path="data-cleaning-techniques-and-outliers-detection.html"><a href="data-cleaning-techniques-and-outliers-detection.html#outliers-and-influence-measures"><i class="fa fa-check"></i><b>7.1</b> Outliers and influence measures</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="indices.html"><a href="indices.html"><i class="fa fa-check"></i><b>8</b> Indices</a></li>
 <li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a></li>
 <li class="chapter" data-level="10" data-path="gis-tools.html"><a href="gis-tools.html"><i class="fa fa-check"></i><b>10</b> GIS Tools</a></li>
 <li class="chapter" data-level="11" data-path="spatial-models.html"><a href="spatial-models.html"><i class="fa fa-check"></i><b>11</b> Spatial models</a></li>
 <li class="chapter" data-level="12" data-path="forecasting.html"><a href="forecasting.html"><i class="fa fa-check"></i><b>12</b> Forecasting</a></li>
 <li class="chapter" data-level="13" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>13</b> References</a></li>
+<li class="chapter" data-level="14" data-path="additional-topics.html"><a href="additional-topics.html"><i class="fa fa-check"></i><b>14</b> Additional topics</a><ul>
+<li class="chapter" data-level="14.1" data-path="additional-topics.html"><a href="additional-topics.html#regular-expressions"><i class="fa fa-check"></i><b>14.1</b> Regular expressions</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="additional-topics.html"><a href="additional-topics.html#introduction-to-stringi-package"><i class="fa fa-check"></i><b>14.1.1</b> Introduction to <code>stringi</code> package</a></li>
+<li class="chapter" data-level="14.1.2" data-path="additional-topics.html"><a href="additional-topics.html#basic-notation"><i class="fa fa-check"></i><b>14.1.2</b> Basic notation</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="additional-topics.html"><a href="additional-topics.html#examples"><i class="fa fa-check"></i><b>14.2</b> Examples</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="additional-topics.html"><a href="additional-topics.html#extract-digits"><i class="fa fa-check"></i><b>14.2.1</b> Extract digits</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -154,8 +164,62 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="data-cleaning-techniques-and-outliers-detection" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Data cleaning techniques and outliers detection</h1>
+<h1><span class="header-section-number">7</span> Data cleaning techniques and outliers detection</h1>
+<div id="outliers-and-influence-measures" class="section level2">
+<h2><span class="header-section-number">7.1</span> Outliers and influence measures</h2>
+<p><strong>Leverage</strong> given by</p>
+<p><span class="math display">\[
+h_i = \frac{1}{n} + \frac{(X_i - \overline{X})}{\sum(X_i - \overline{X})^2}
+\]</span></p>
+<p><strong>Studentized residuals</strong> given by</p>
+<p><span class="math display">\[
+e_{i}^{*}=\frac{e_i}{S_{e(-1)}\sqrt{1-h_i}}
+\]</span></p>
+<p>where: <span class="math inline">\(e_i\)</span> - residual, <span class="math inline">\(S_{e(-1)}\)</span> - standard error of the regression without i-th observation. Studentized residuals follow t-distribution with <span class="math inline">\(n-k-2\)</span> degress of freedom.</p>
+<p><strong>Cook distance</strong> <span class="math display">\[ 
+D_i=\frac{e_i}{k+1}\frac{h_i}{1-h_i}
+\]</span></p>
+<p>where <span class="math inline">\(k\)</span> – number of dependent variables, <span class="math inline">\(h_i = \frac{1}{n} + \frac{(X_i - \overline{X})}{\sum(X_i - \overline{X})^2}\)</span> , <span class="math inline">\(MSE=\frac{1}{n}\sum_{i=1}^n(\hat{Y}_i-Y_i)^2\)</span> outliers meet:</p>
+<p><span class="math display">\[
+D_i&gt;\frac{4}{n-k-1}
+\]</span></p>
+<p><strong>DFBETA</strong> measures change in estimates of regression parameters when we remove one observation</p>
+<p><span class="math display">\[
+DFBETA_i=(\sum_{i \in s} \mathbf{x}_i\mathbf{x}_i^T)^{-1}\mathbf{x}_i\frac{e_i}{1-\mathbf{x}_i^T(\sum_{i \in s} \mathbf{x}_i\mathbf{x}_i^T)^{-1}\mathbf{x}_i}
+\]</span></p>
+<p><strong>DFBETAS</strong> - standarised version of DFBETA. Measures influence in units of standard error of regression.</p>
+<p><span class="math display">\[ 
+DFBETAS_i=\frac{\hat{\mathbf{\beta}}-\hat{\mathbf{\beta}}_{(-i)}}{\sqrt{MSE_{(-i)}}}=\frac{DFBETA_i}{\sqrt{MSE_{(-i)}}}
+\]</span></p>
+<p>Outliers meet:</p>
+<ul>
+<li><span class="math inline">\(|DFBETAS_i|&gt;2\)</span> - small samples</li>
+<li><span class="math inline">\(DFBETAS_i&gt;\frac{2}{\sqrt{n}}\)</span></li>
+</ul>
+<p><strong>DFFITS</strong> – measures global difference between model with and without <em>i</em> observation.</p>
+<p><span class="math display">\[
+DFFITS_i=\frac{e_i\sqrt{\frac{h_i}{1-h_i}}}{\sqrt{MSE_{(-i)}}\sqrt{{1-h_i}}}
+\]</span></p>
+<p>Outliers meet <span class="math inline">\(|DFFITS_i| &gt; 2\sqrt{\frac{p+1}{n-k-1}}\)</span></p>
+<p><strong>CovRatio</strong> – measures influence on variance of regression coefficients</p>
+<p><span class="math display">\[
+COVRATIO_i=\frac{1}{(\frac{n-k-2+t_i^2}{n-k-1})^{k+2}}\frac{1}{(1-h_i)}
+\]</span></p>
+<p>where <span class="math inline">\(h_i\)</span> is the same as in Cook’s distance, <span class="math inline">\(t_i\)</span> is defined</p>
+<p><span class="math display">\[
+t_i=\frac{e_i}{\sqrt{MSE_{(-i)}}\sqrt{{1-h_i}}}
+\]</span></p>
+<p>Interpretation:</p>
+<ul>
+<li><span class="math inline">\(COVRATIO_i &lt; 1\)</span> - elimination of <span class="math inline">\(i\)</span> th unit/observation will reduce standard errors of regression coefficients</li>
+<li><span class="math inline">\(COVRATIO_i &gt; 1\)</span> - elimination of <span class="math inline">\(i\)</span> th unit/observation will increase standard errors of regression coefficients</li>
+</ul>
+<p>it is suggested to use sample size dependent thresholds</p>
+<p><span class="math display">\[
+|COVRATIO_i-1| &gt; 3(k+1)/n
+\]</span></p>
 
+</div>
 </div>
             </section>
 
@@ -163,8 +227,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 <a href="descriptives-statistics-as-basic-method-of-analysis-of-real-estate-market.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="indices.html" class="navigation navigation-next " aria-label="Next page""><i class="fa fa-angle-right"></i></a>
-
+<a href="indices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
@@ -202,6 +267,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

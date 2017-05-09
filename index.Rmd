@@ -31,3 +31,12 @@ theme_set(theme_bw())
 ```
 
 
+# Read the data
+
+```{r}
+rema <- read.csv2('datasets/project_data_train.csv', 
+                 header = T, 
+                 stringsAsFactors = F, 
+                 dec ='.')
+```
+

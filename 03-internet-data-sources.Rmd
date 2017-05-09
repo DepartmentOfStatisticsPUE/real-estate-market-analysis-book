@@ -140,8 +140,9 @@ head(offer_title)
 offer_total_price <- offers %>% 
   html_nodes('li.offer-item-price') %>%
   html_text() %>%
+  stri_replace_all(., rep='.',fixed=',') %>% 
   stri_replace_all(., rep='',regex='\\s+') %>% 
-  stri_extract_all(., regex = '\\d+') %>%
+  stri_extract_all(., regex = '\\d+(\\.\\d+)?') %>%
   unlist() %>%
   as.numeric()
 
